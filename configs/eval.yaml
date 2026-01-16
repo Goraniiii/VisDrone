@@ -1,0 +1,13 @@
+# configs/eval.yaml
+
+weights: results/visdrone_det/weights/best.pt
+model_name: yolov8n
+
+data: configs/data.yaml
+imgsz: 640
+batch: 8
+epochs: 30
+seed: 42
+device: 0
+
+output: results/metrics.json
