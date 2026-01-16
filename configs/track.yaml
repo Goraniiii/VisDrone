@@ -1,0 +1,18 @@
+# configs/track.yaml
+
+task: object_tracking
+dataset: VisDrone-MOT
+
+weights: results/visdrone_det/weights/best.pt
+tracker: bytetrack.yaml
+
+source: VisDrone2019/VisDrone2019-MOT-val/sequences
+imgsz: 640
+conf: 0.25
+iou: 0.5
+device: 0
+save: true
+save_txt: true
+seed: 42
+
+output_dir: results/tracking
