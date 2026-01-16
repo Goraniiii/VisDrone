@@ -1,8 +1,27 @@
 # VisDrone Object Detection & Multi-Object Tracking
 
-본 프로젝트는 VisDrone2019 데이터셋을 기반으로 객체 검출(Object Detection)과 다중 객체 추적(Multi-Object Tracking, MOT)을 수행한다.
+VisDrone2019 데이터셋을 기반으로 객체 검출(Object Detection)과 다중 객체 추적(Multi-Object Tracking, MOT)을 수행한다.
 
-Ultralytics YOLOv8을 기반으로 Detection(Task A) → Tracking(Task B) → Evaluation → 결과 시각화(Video)의 파이프라인을 거친다
+Ultralytics YOLOv8을 기반으로 Detection(Task A) → Tracking(Task B) → Evaluation → 결과 시각화(Video)의 파이프라인을 거친다.
+
+### 데이터셋 및 클래스 선정 이유
+
+VisDrone 데이터셋은 드론 촬영 환경에서 수집된 영상으로 구성되어, 고도 변화, 시점 이동등에 대해 다양한 케이스를 포함하고 있다. 클래스는 VisDrone에서 제공하는 객체 중 보행자, 차량 계열을 중심으로 사용하였다. 해당 클래스들은 프레임 간 이동이 명확하고 tracking 결과를 시각적으로 확인하기 용이하여 선택하였다.
+
+
+### 모델 선정
+
+객체 탐지 및 추적을 위해 YOLO 계열 모델 + Tracking 기능을 사용하였다.
+YOLO는 single-stage detector로 실시간 처리에 적합하며, VisDrone과 같이 객체 수가 많고 프레임 크기가 큰 환경에서도 비교적 안정적으로 동작한다.
+
+### 결과
+#### 성능 변화
+* epoch 수가 증가함에 따라 객체 탐지의 안정성은 개선되었으나, 작은 객체나 멀리 있는 객체에 대해서는 큰 성능 향상이 관찰되지 않았다.
+* 이미지 해상도를 지나치게 낮출 경우, 작은 객체가 탐지되지 않거나 tracking ID가 자주 변경되는 현상이 발생하였다.
+
+#### 실패 사례
+* 작은 객체가 다수 밀집된 장면: 객체 크기가 매우 작아 detection 자체가 불안정
+* Occlusion: 이전 ID를 유지하지 못하고 새로운 객체로 판단
 
 ---
 
@@ -79,8 +98,8 @@ python eval.py --config configs/eval.yaml
   "epochs": 30,
   "imgsz": 640,
   "batch": 8,
-  "mAP50": 0.3555,
-  "mAP50_95": 0.1999,
+  "mAP50": 0.3555103162097585,
+  "mAP50_95": 0.1998574764972477,
   "seed": 42
 }
 ```
@@ -94,7 +113,7 @@ python eval.py --config configs/eval.yaml
 ### 4.1 Tracking Method
 
 * Detector: YOLOv8 (Task A에서 학습한 best.pt)
-* Tracker: **ByteTrack** (Ultralytics 내장)
+* Tracker: ByteTrack (Ultralytics 내장)
 
 ### 4.2 Tracking Execution
 
@@ -113,7 +132,7 @@ python track.py --config configs/track.yaml
 
 ## 5. Video Generation
 
-프레임 이미지(`000001.jpg` 형식)를 기반으로 **ffmpeg-python**을 사용해 영상을 생성하였다.
+프레임 이미지(`0000001.jpg` 형식)를 기반으로 ffmpeg을 사용해 영상을 생성하였다.
 
 * FPS: 30
 * Codec: H.264
@@ -157,5 +176,8 @@ VisDrone/
 
 ## 8. Conclusion
 
-본 프로젝트는 VisDrone 데이터셋을 대상으로 객체 검출 및 다중 객체 추적의 전 과정을 end-to-end로 구현하였다.
+VisDrone 데이터셋을 대상으로 객체 검출 및 다중 객체 추적의 전 과정을 end-to-end로 구현하였다.
 Detection 성능 평가(mAP)와 Tracking 시각화 결과를 통해 실제 환경에서의 적용 가능성을 확인하였다.
+
+
+
