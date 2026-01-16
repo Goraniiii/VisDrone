@@ -1,0 +1,28 @@
+C:\Users\gony4\miniconda3\envs\VisDrone\python.exe C:\Users\gony4\PycharmProjects\VisDrone\eval.py 
+Ultralytics 8.4.3  Python-3.10.19 torch-2.5.1+cu121 CUDA:0 (NVIDIA GeForce RTX 4060 Ti, 8188MiB)
+Model summary (fused): 73 layers, 3,006,623 parameters, 0 gradients, 8.1 GFLOPs
+val: Fast image access  (ping: 0.00.0 ms, read: 2452.2738.4 MB/s, size: 167.3 KB)
+val: Scanning C:\Users\gony4\PycharmProjects\VisDrone\VisDrone2019\VisDrone2019-DET-val\labels.cache... 548 images, 0 backgrounds, 0 corrupt: 100% ━━━━━━━━━━━━ 548/548  0.0s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 69/69 25.6it/s 2.7s
+                   all        548      31295      0.444      0.355      0.356        0.2
+            pedestrian        520       8844      0.429      0.346       0.34       0.14
+                   car        482       5125      0.449      0.307      0.298      0.108
+                   van        364       1287      0.233     0.0473     0.0451     0.0153
+                   bus        515      14064      0.603      0.757      0.749      0.504
+                 truck        421       1975      0.505      0.316      0.345      0.232
+Speed: 0.4ms preprocess, 1.2ms inference, 0.0ms loss, 1.0ms postprocess per image
+Results saved to C:\Users\gony4\PycharmProjects\VisDrone\runs\detect\val4
+Evaluation metrics saved to results/metrics.json
+
+Evaluation Results
+dataset: VisDrone-DET
+task: object_detection
+model: yolov8n
+epochs: 30
+imgsz: 640
+batch: 8
+mAP50: 0.3555103162097585
+mAP50_95: 0.1998574764972477
+seed: 42
+
+종료 코드 0(으)로 완료된 프로세스

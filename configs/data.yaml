@@ -1,0 +1,12 @@
+# configs/data.yaml
+
+path: VisDrone2019
+train: VisDrone2019-DET-train/images
+val: VisDrone2019-DET-val/images
+
+names:
+  0: pedestrian
+  1: car
+  2: van
+  3: bus
+  4: truck

@@ -1,0 +1,19 @@
+# configs/train.yaml
+
+model: yolov8n.pt
+data: configs/data.yaml
+
+epochs: 30
+imgsz: 640
+batch: 16
+
+optimizer: SGD
+lr0: 0.01
+weight_decay: 0.0005
+
+seed: 42
+device: 0
+
+project: results
+name: visdrone_det
+exist_ok: true
