@@ -1,40 +1,29 @@
 # image_to_video.py
 
-import ffmpeg
+import os
+import subprocess
 from pathlib import Path
 
 
-def make_video(
-    image_dir: str,
-    output_path: str,
-    fps: int = 30,
-    start_number: int = 1,
-    img_ext: str = "jpg"
-):
-    image_dir = Path(image_dir)
-    output_path = Path(output_path)
+def images_to_video(img_dir, out_mp4, fps=30, start_number=1):
+    img_dir = Path(img_dir)
+    input_pattern = str(img_dir / f"%07d.jpg")
 
-    assert image_dir.exists(), f"{image_dir} not found"
-
-    input_pattern = str(image_dir / f"%06d.{img_ext}")
-
-    (
-        ffmpeg
-        .input(input_pattern, framerate=fps, start_number=start_number)
-        .output(
-            str(output_path),
-            vcodec="libx264",
-            pix_fmt="yuv420p",
-            movflags="+faststart"
-        )
-        .overwrite_output()
-        .run(quiet=False)
-    )
+    cmd = [
+        "ffmpeg",
+        "-y",  # overwrite
+        "-framerate", str(fps),
+        "-start_number", str(start_number),
+        "-i", input_pattern,
+        "-c:v", "libx264",
+        "-pix_fmt", "yuv420p",
+        "-movflags", "+faststart",
+        str(out_mp4),
+    ]
+    subprocess.run(cmd)
 
 
-if __name__ == "__main__":
-    make_video(
-        image_dir="runs/detect/results/tracking/uav0000086_00000_v",
-        output_path="runs/detect/results/tracking/uav0000086_00000_v.mp4",
-        fps=30
-    )
+images_to_video(
+    "runs/detect/results/tracking/uav0000086_00000_v",
+    "runs/detect/results/tracking/uav0000086_00000_v.mp4"
+)
