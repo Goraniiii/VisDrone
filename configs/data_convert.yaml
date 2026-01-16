@@ -1,0 +1,14 @@
+# configs/data_convert.yaml
+
+root: VisDrone2019
+
+splits:
+  - VisDrone2019-DET-train
+  - VisDrone2019-DET-val
+
+class_mapping:
+  1: 0   # pedestrian
+  2: 1   # people
+  3: 2   # bicycle
+  4: 3   # car
+  5: 4   # van
