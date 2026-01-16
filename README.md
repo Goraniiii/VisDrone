@@ -43,6 +43,8 @@ Detection 학습을 위해 VisDrone annotation을 YOLO format으로 변환하였
 
 ## 3. Task A – Object Detection
 
+[Detection Output](https://github.com/Goraniiii/VisDrone/tree/master/results)
+
 ### 3.1 Training
 
 * Model: `YOLOv8n`
@@ -86,6 +88,8 @@ python eval.py --config configs/eval.yaml
 ---
 
 ## 4. Task B – Multi-Object Tracking
+
+[Tracking Output](https://github.com/Goraniiii/VisDrone/tree/master/runs/detect/results/tracking)
 
 ### 4.1 Tracking Method
 
